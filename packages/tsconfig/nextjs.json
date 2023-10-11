@@ -10,11 +10,13 @@
     "incremental": true,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
     "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": false,
-    "target": "es5"
+    "target": "es5",
+    "esModuleInterop": true
   },
   "include": ["src", "next-env.d.ts"],
   "exclude": ["node_modules"]
