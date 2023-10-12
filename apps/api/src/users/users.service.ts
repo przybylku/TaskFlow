@@ -22,7 +22,11 @@ export class UsersService {
         })
         return accessToken;
     }
-
+    /**
+     * 
+     * @param {registerDTO} body 
+     * @returns AccessToken : string, expiresIn: number, user: UserFromDatabase
+     */
     async register(body: registerDTO): Promise<AuthUser> {
         try { 
             const check = await this.User.findOne({email: body.email})
