@@ -7,9 +7,7 @@ export interface JwtPayload {
   email: string;
   role: string;
 }
-/**
- * @description Sprawdzanie tokenu requesta. Odnalezienie usera i przypisanie do danego requesta.
- */
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: UsersService) {
