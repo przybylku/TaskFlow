@@ -10,6 +10,8 @@
     "web": "next dev"
   },
   "dependencies": {
+    "axios": "^1.5.1",
+    "dayjs": "^1.11.10",
     "next": "^13.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -20,11 +22,11 @@
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "typescript": "^4.5.3",
     "autoprefixer": "^10.4.16",
+    "eslint-config-custom": "*",
     "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "tsconfig": "*",
+    "typescript": "^4.5.3"
   }
 }
