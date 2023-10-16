@@ -19,6 +19,7 @@ export class TasksService {
             task.priority = body.priority;
             task.status = body.status;
             task.description = body.description ? body.description : "";
+            task.section = body.section ? body.section : "todo"
 
             const res = await task.save()
             if(!res._id){
@@ -71,7 +72,7 @@ export class TasksService {
     }
     async updateTask(body: taskUpdateDTO, user: User){
         try {
-            const filtred = {title: body.title, priority: body.priority, status: body.status, description: body.description}
+            const filtred = {title: body.title, priority: body.priority, status: body.status, description: body.description, section: body.section ? body.section : "todo"}
             const updated = await this.taskDB.updateOne({_id: body.id, board: user.Board}, {$set: filtred })
             if(updated.modifiedCount < 1){
                 throw new HttpException("Task not updated or not found", HttpStatus.NOT_MODIFIED)

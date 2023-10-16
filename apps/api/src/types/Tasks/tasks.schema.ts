@@ -42,6 +42,8 @@ export class Task {
   description?: string;
   @Prop({required: false, type: [{type: mongoose.Schema.Types.ObjectId, ref: "TaskComment"}]})
   comments?: mongoose.Types.ObjectId[];
+  @Prop({required: false, type: String})
+  section?: string;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task)
