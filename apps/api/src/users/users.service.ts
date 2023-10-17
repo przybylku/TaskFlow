@@ -2,11 +2,11 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Board } from 'src/types/Board/Board.schema';
-import { User } from 'src/types/Users/User.schema';
-import { AuthUser } from 'src/types/Users/user.types';
-import { loginDTO, registerDTO } from 'src/types/Users/users.dto';
-import { hash } from 'src/utils/hash';
+import { Board } from '../types/Board/Board.schema';
+import { User } from '../types/Users/User.schema';
+import { AuthUser } from '../types/Users/user.types';
+import { loginDTO, registerDTO } from '../types/Users/users.dto';
+import { hash } from '../utils/hash';
 
 @Injectable()
 export class UsersService {
