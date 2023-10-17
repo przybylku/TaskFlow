@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://JacobDev:Jowi2703@devflow.kytm4jj.mongodb.net/?retryWrites=true&w=majority"), UsersModule, ConfigModule.forRoot({
+  imports: [MongooseModule.forRoot("mongodb+srv://JacobDev:Jowi2703@devflow.kytm4jj.mongodb.net/?retryWrites=true"), UsersModule, ConfigModule.forRoot({
     envFilePath: '.env', isGlobal: true,
   }), TasksModule],
   controllers: [AppController],
