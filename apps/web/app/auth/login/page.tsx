@@ -22,7 +22,7 @@ import Loading from "../register/loading";
             <h1 className="text-[2rem]">Zaloguj się na konto</h1>
             <p className="md:mb-8">Wpisz swoje dane do logowania poniżej</p>
               <Login/>
-            <p className="mt-4 text-[0.9rem] flex flex-row">Masz już konto? <Link className="text-primary flex flex-row" href="/auth/login"><Link2 className="ml-2 mr-1" size={20} /> Zaloguj się</Link></p>
+            <p className="mt-4 text-[0.9rem] flex flex-row">Nie masz konta? <Link className="text-primary flex flex-row" href="/auth/register"><Link2 className="ml-2 mr-1" size={20} /> Zarejestruj się</Link></p>
           </div>
         </div>
         </Suspense>

@@ -7,7 +7,12 @@ import Image from "next/image";
 export default function page(): JSX.Element {
   return (
     <>
-      <div className="flex flex-col px-2 md:px-40 justify-center content-center items-center mt-12 mb-14">
+      <div className="flex flex-row px-2 py-4 justify-end items-end">
+        <Link href={"/auth/login"}>
+          Login
+        </Link>
+      </div>
+      <div className="flex flex-col px-2 md:px-40 justify-center content-center items-center mt-6 mb-14">
         <div
           className={buttonVariants({
             size: "lg",
@@ -31,7 +36,7 @@ export default function page(): JSX.Element {
           Ci osiąganie celów z łatwością.
         </p>
         <Link
-          href={"/register"}
+          href={"/auth/register"}
           className={buttonVariants({ className: "mt-5" })}
         >
           Sprawdź <ArrowRight size={18} className="ml-1" />

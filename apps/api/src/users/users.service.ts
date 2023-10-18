@@ -68,6 +68,15 @@ export class UsersService {
           return user;
         } catch (e) {}
       }
+    async refresh(user: User){
+        const _user = await this.User.findOne({_id: user.email})
+        const token = this.createToken(_user)
+        return {
+            accessToken: token,
+            expiresIn: 60 * 60 * 12,
+            _user
+        }
+    }
     async login(body: loginDTO): Promise<AuthUser>{
         try {
             const check = await this.User.findOne({email: body.email, password: hash(body.password.toString())})

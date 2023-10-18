@@ -14,7 +14,7 @@ type Inputs = {
   username: string;
 };
 
-export default function Register() {
+export default function Login() {
   const {
     register,
     handleSubmit,
@@ -33,6 +33,7 @@ export default function Register() {
       axios.post("http://localhost:3005/user/login", data, {headers: {'Access-Control-Allow-Origin': "*"}} ).then((res) => {
         console.log(res)
         userDispatch(setUser({...res.data.user, accessToken: res.data.accessToken, expiresIn: res.data.expireIn}))
+        // setCookie("accessToken", res.data.accessToken, {expires: res.data.expireIn})
         setLoading(false)
       }).then((rse) => {
         console.log(user)

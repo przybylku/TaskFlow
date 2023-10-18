@@ -1,8 +1,11 @@
 "use client"
-import { useState, useEffect } from "react";
-import {usePathname} from "next/navigation"
 import { Provider } from 'react-redux'
 import {store} from '@/store/store'
+import { NextUIProvider } from '@nextui-org/react'
+import useCookiedUser from "./useCookiedUser";
+import usePath from "@/lib/usePath";
+import { cookies } from 'next/headers';
+
 /**
  * 
  * TODO:
@@ -10,15 +13,10 @@ import {store} from '@/store/store'
  */
 
 export default function TaskFlowProvider({className, children}: {className?: string, children: JSX.Element}){
-    const [path, setPath] = useState<string>("/" + usePathname())
-    const pathname = usePathname()
-    useEffect(() => {
-        console.log(pathname.split("/")[1])
-        setPath(pathname.split("/")[1])
-    }, [pathname])
+    const path = usePath()
     return (
         <div className={`mx-auto flex flex-col justify-center ${path === 'auth' || path === 'dashboard' ? "px-0" : "px-4 md:px-24"}`}>
-            <Provider store={store}>{children}</Provider>
+            <NextUIProvider><Provider store={store}>{children}</Provider></NextUIProvider>
         </div>
     )
 }
