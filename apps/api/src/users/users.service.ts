@@ -39,7 +39,7 @@ export class UsersService {
             board.user = user._id
             const res = await board.save()
             if(res.errors){
-                throw new HttpException(res.errors, HttpStatus.INTERNAL_SERVER_ERROR)
+                throw new HttpException(res.errors.message, HttpStatus.INTERNAL_SERVER_ERROR)
             }
             user.Board = board.id;
             const _res =  await user.save()
