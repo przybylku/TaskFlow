@@ -5,25 +5,23 @@ import axios from "axios"
 import { HomeIcon, Inbox } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
+// const cookies from 'next/'
 import DashboardTasks from "./DashboardTask"
 
 export default function Dashboard(){
     const router = useRouter()
-    const path = usePathname()
-    let params = useSearchParams()
-    let _params: string | null = params.get('id')
+    let [id, setId] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
     const user: UserType = useAppSelector(selectUser)
     
     useEffect(() => {
+        console.log(user)
         if(user && !user.accessToken){
             router.push("/auth/login")
         }
         // const params = path.split("/")
-    console.log(params)
         setTimeout(() => {
             axios.get("localhost:3005/tasks", {headers: {Authorization: `Bearer ${user.accessToken}`}}).then(res => {
                 console.log(res)
@@ -33,7 +31,7 @@ export default function Dashboard(){
             })
 
         }, 1500)
-    }, [user, path])
+    }, [user])
     return (
         <div className="flex flex-row w-full h-full flex-wrap">
                 <div className="flex w-full h-[8vh] bg-red-500"></div>
@@ -44,14 +42,14 @@ export default function Dashboard(){
                     </ol>
                     <div className="w-[calc(100%-20px)] px-4 border-t-gray-400 border-t-1 h-[2px]"></div>
                     <ol>
-                        <li><Link href={`dashboard?id=${user.Board}`}>{user.Board}</Link></li>
+                        <li><Link href={`dashboard?id=${user.Board}`} onClick={() => setId(user.Board)}>{user.Board}</Link></li>
                     </ol>
                 </div>
-                <div className="flex md:w-[calc(100vw-250px)] md:h-[92vh] bg-blue-600">
-                    {_params !== "" ? <>
+                <div className="flex w-[calc(100vw-250px)] md:w-[calc(100vw-250px)] md:h-[92vh] h-[92vh] bg-blue-600">
+                    {id === "" ? <>
                     <div className="flex flex-row w-full h-full justify-center items-center"><h1 className="text-[2rem] font-semibold">Nie wybrano projektu</h1></div>
                     </> : <>
-                        <DashboardTasks id={_params}/> 
+                        <DashboardTasks id={id}/> 
                         </>}
                 </div>
             </div>

@@ -5,14 +5,15 @@ import storage from "./storage";
 import thunk from "redux-thunk";
 import { type } from "os";
 import { persistStore } from "redux-persist";
+import storageSession from 'redux-persist/lib/storage/session'
 const rootReducer = combineReducers({
     user: userSlice,
 });
 
-const persisted = persistReducer({key: 'root', storage, whitelist: ['user']}, rootReducer)
+const persisted = persistReducer({key: 'root', storage: storageSession, whitelist: ['user']}, rootReducer)
 
 export const store = configureStore({
-    reducer: rootReducer,
+    reducer: persisted,
     devTools: process.env.NODE_ENV !== 'production',
     middleware: [thunk]
 })

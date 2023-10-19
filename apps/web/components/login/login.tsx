@@ -30,7 +30,7 @@ export default function Login() {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
     setLoading(true)
     setTimeout(() => {
-      axios.post("http://localhost:3005/user/login", data, {headers: {'Access-Control-Allow-Origin': "*"}} ).then((res) => {
+      axios.post("https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/user/login", data, {headers: {'Access-Control-Allow-Origin': "*"}} ).then((res) => {
         console.log(res)
         userDispatch(setUser({...res.data.user, accessToken: res.data.accessToken, expiresIn: res.data.expireIn}))
         // setCookie("accessToken", res.data.accessToken, {expires: res.data.expireIn})

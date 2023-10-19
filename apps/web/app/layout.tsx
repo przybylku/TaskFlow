@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import React from "react";
 import Provider from '@/components/Provider'
+import { Toaster } from "@/components/ui/toaster";
 const poppins = Poppins({ subsets: ["latin"], weight: ["200", "300", "400", "500" , "600", "700", "800"], style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ interface props {
 export default function RootLayout({ children }: props): JSX.Element {
   return (
     <html lang="en">
-      <body className={poppins.className}><Provider>{children}</Provider></body>
+      <body className={poppins.className}><Provider><>{children}<Toaster/></></Provider></body>
     </html>
   );
 }
