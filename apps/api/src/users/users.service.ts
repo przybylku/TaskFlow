@@ -79,7 +79,7 @@ export class UsersService {
     }
     async login(body: loginDTO): Promise<AuthUser>{
         try {
-            const check = await this.User.findOne({email: body.email, password: hash(body.password.toString())})
+            const check = await this.User.findOne({email: body.email, password: hash(body.password.toString())}).populate('Board')
             if(!check?._id){
                 throw new HttpException("That user not exists.", HttpStatus.UNAUTHORIZED)
             }

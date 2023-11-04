@@ -33,16 +33,18 @@ export default function DashboardTasks({id}){
     const user: UserType = useAppSelector(selectUser)
     const {toast} = useToast()
     useEffect(() => {
+        if(!id) return;
         setTimeout(() => {
-            axios.get('https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/tasks', {headers: {"Authorization": `Bearer ${user.accessToken}`}}).then((data) => {
+            axios.get(`http://localhost:3005/tasks/${id}`, {headers: {"Authorization": `Bearer ${user.accessToken}`}}).then((data) => {
                 console.log(data)
                 setData(data.data)
-            }).then(() => {
-                setLoading(false)
                 toast({
                     title: "Dane załadowane",
                     description: "Twoje zdania są gotowe!"
                 })
+            }).then(() => {
+                setLoading(false)
+                
             }).catch(() => {
                 setLoading(false)
                 toast({

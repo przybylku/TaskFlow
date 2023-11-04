@@ -8,11 +8,18 @@ export type UserType = {
     username: string;
     email: string;
     password: string;
-    Board: string[];
+    Board: BoardType[];
     createdAt: string;
     updatedAt: string;
     };
-
+export type BoardType = {
+    name: string;
+    user: string;
+    tasks: string[];
+    updatedAt: string;
+    createdAt: string;
+    _id: string;
+}
     const INITIAL_STATE: UserType = {
         accessToken: "",
         expireIn: 0,
@@ -20,7 +27,14 @@ export type UserType = {
         username: "",
         email: "",
         password: "",
-        Board: [],
+        Board: {
+            name: "",
+            user: "",
+            tasks: [],
+            updatedAt: "",
+            createdAt: "",
+            _id: "",
+        },
         createdAt: "",
         updatedAt: "",
     };
