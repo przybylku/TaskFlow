@@ -8,7 +8,8 @@ import {
     TableColumn,
     TableRow,
     TableCell,
-  } from "@nextui-org/table";
+    TableHead,
+  } from "../ui/table";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
@@ -63,14 +64,16 @@ export default function DashboardTasks({id}){
                     {loading ? <Spinner label="loading"/> : <>
                         <Table>
                             <TableHeader>
-                                <TableColumn>NAME</TableColumn>
-                                <TableColumn>utworzony</TableColumn>
+                                <TableRow>
+                                    <TableHead>NAME</TableHead>
+                                    <TableHead>utworzony</TableHead>
+                                </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {data?.map((item, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{item.title}</TableCell>
-                                            <TableCell>{item.createdAt}</TableCell>
+                                            <TableCell ><p className="">{item.title}</p></TableCell>
+                                            <TableCell><p className="">{item.createdAt}</p></TableCell>
                                         </TableRow>
                                 )) as any}
                             </TableBody>
