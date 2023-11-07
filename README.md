@@ -24,5 +24,6 @@ Aktualnie trwają prace 🏗️
 
 ## Authors
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@przybylku](https://github.com/przybylku)
+- [@paprykdev](https://github.com/paprykdev)
 
