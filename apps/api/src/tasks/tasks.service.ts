@@ -11,14 +11,15 @@ import * as mongoose from "mongoose";
 export class TasksService {
     constructor(@InjectModel(Task.name) private taskDB: Model<Task>, @InjectModel(Board.name) private boardDB: Model<Board>, @InjectModel(TaskComment.name) private commentDB: Model<TaskComment>) {}
 
-    async create(body: taskCreateDTO, user: User): Promise<any> {
+    async create(body: taskCreateDTO, user: User, board : string): Promise<any> {
         try {
             const task = new this.taskDB()
             task.title = body.title;
-            task.board = user.Board;
+            task.board = board as unknown as mongoose.Schema.Types.ObjectId;
             task.priority = body.priority;
             task.status = body.status;
             task.description = body.description ? body.description : "";
+            task.section = body.section ? body.section : "todo"
 
             const res = await task.save()
             if(!res._id){
@@ -47,9 +48,9 @@ export class TasksService {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-    async getTasks(user: User): Promise<Task[]>{
+    async getTasks(user: User, board: string): Promise<Task[]>{
         try {
-            const tasks = this.taskDB.find({board: user.Board}).populate('comments')
+            const tasks = this.taskDB.find({board: board}).populate('comments')
             if(!tasks){
                 throw new HttpException("Tasks not found", HttpStatus.NOT_FOUND)
             }
@@ -71,7 +72,7 @@ export class TasksService {
     }
     async updateTask(body: taskUpdateDTO, user: User){
         try {
-            const filtred = {title: body.title, priority: body.priority, status: body.status, description: body.description}
+            const filtred = {title: body.title, priority: body.priority, status: body.status, description: body.description, section: body.section ? body.section : "todo"}
             const updated = await this.taskDB.updateOne({_id: body.id, board: user.Board}, {$set: filtred })
             if(updated.modifiedCount < 1){
                 throw new HttpException("Task not updated or not found", HttpStatus.NOT_MODIFIED)

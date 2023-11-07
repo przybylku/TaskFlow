@@ -2,11 +2,11 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Board } from 'src/types/Board/Board.schema';
-import { User } from 'src/types/Users/User.schema';
-import { AuthUser } from 'src/types/Users/user.types';
-import { loginDTO, registerDTO } from 'src/types/Users/users.dto';
-import { hash } from 'src/utils/hash';
+import { Board } from '../types/Board/Board.schema';
+import { User } from '../types/Users/User.schema';
+import { AuthUser } from '../types/Users/user.types';
+import { loginDTO, registerDTO } from '../types/Users/users.dto';
+import { hash } from '../utils/hash';
 
 @Injectable()
 export class UsersService {
@@ -39,7 +39,7 @@ export class UsersService {
             board.user = user._id
             const res = await board.save()
             if(res.errors){
-                throw new HttpException(res.errors, HttpStatus.INTERNAL_SERVER_ERROR)
+                throw new HttpException(res.errors.message, HttpStatus.INTERNAL_SERVER_ERROR)
             }
             user.Board = board.id;
             const _res =  await user.save()
@@ -68,9 +68,18 @@ export class UsersService {
           return user;
         } catch (e) {}
       }
+    async refresh(user: User){
+        const _user = await this.User.findOne({_id: user.email})
+        const token = this.createToken(_user)
+        return {
+            accessToken: token,
+            expiresIn: 60 * 60 * 12,
+            _user
+        }
+    }
     async login(body: loginDTO): Promise<AuthUser>{
         try {
-            const check = await this.User.findOne({email: body.email, password: hash(body.password.toString())})
+            const check = await this.User.findOne({email: body.email, password: hash(body.password.toString())}).populate('Board')
             if(!check?._id){
                 throw new HttpException("That user not exists.", HttpStatus.UNAUTHORIZED)
             }

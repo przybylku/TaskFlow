@@ -12,6 +12,8 @@ export class taskCreateDTO {
     status: TaskStatus
     @Allow()
     description: string;
+    @Allow()
+    section: string;
 }
 export class taskUpdateDTO {
     @IsNotEmpty()
@@ -26,6 +28,8 @@ export class taskUpdateDTO {
     status: TaskStatus
     @Allow()
     description: string;
+    @Allow()
+    section: string;
 }
 
 export class taskCommentDTO {

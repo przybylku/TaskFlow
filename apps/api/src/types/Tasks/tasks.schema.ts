@@ -33,7 +33,7 @@ export class Task {
   @Prop()
   title: string;
   @Prop({type: mongoose.Schema.Types.ObjectId, ref: "Board"})
-  board: mongoose.Types.ObjectId;
+  board: mongoose.Schema.Types.ObjectId;
   @Prop({type: String, enum: TaskPriority, default: TaskPriority.MID})
   priority: TaskPriority
   @Prop({type: String, enum: TaskStatus, default: TaskStatus.ON_TIME})
@@ -42,6 +42,8 @@ export class Task {
   description?: string;
   @Prop({required: false, type: [{type: mongoose.Schema.Types.ObjectId, ref: "TaskComment"}]})
   comments?: mongoose.Types.ObjectId[];
+  @Prop({required: false, type: String})
+  section?: string;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task)

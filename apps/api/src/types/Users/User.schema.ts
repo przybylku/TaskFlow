@@ -12,8 +12,8 @@ export class User {
     email: string;
     @Prop({required: true})
     password: string;
-    @Prop({required: true, type: mongoose.Schema.Types.ObjectId, ref: "Board"})
-    Board: mongoose.Types.ObjectId
+    @Prop({required: true, type: [{type: mongoose.Schema.Types.ObjectId}], ref: "Board"})
+    Board: mongoose.Types.ObjectId[]
 }
 
 

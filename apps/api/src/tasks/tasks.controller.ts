@@ -12,10 +12,10 @@ import * as mongoose from "mongoose";
 export class TasksController {
     constructor(@Inject(TasksService) private taskService : TasksService) {
     }
-    @Post()
+    @Post(':board')
     @UseGuards(AuthGuard('jwt'))
-    async createTask(@Body() body : taskCreateDTO, @getUser() user: User, @Res() res: Response): Promise<any> {
-        const data = await this.taskService.create(body, user)
+    async createTask(@Body() body : taskCreateDTO, @Param('board') board : string, @getUser() user: User, @Res() res: Response): Promise<any> {
+        const data = await this.taskService.create(body, user, board)
         res.json(data)
     }
     @Post('comment')
@@ -24,12 +24,13 @@ export class TasksController {
         const data = await this.taskService.addComment(body)
         res.json(data)
     }
-    @Get()
+    @Get(":board")
     @UseGuards(AuthGuard('jwt'))
     async getAllUserTasks(
         @getUser() user: User
-        ,@Res() res: Response): Promise<Task[]>{
-        const tasks = await this.taskService.getTasks(user)
+        ,@Res() res: Response,
+        @Param('board') board: string): Promise<Task[]>{
+        const tasks = await this.taskService.getTasks(user, board)
         res.json(tasks)
         return tasks
     }

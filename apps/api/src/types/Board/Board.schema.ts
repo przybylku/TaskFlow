@@ -7,6 +7,8 @@ export type BoardDocument = HydratedDocument<Board>
 
 @Schema({timestamps: true, id: true})
 export class Board {
+    @Prop({required: true, type: String})
+    name: string;
     @Prop({required: true, type: mongoose.Schema.Types.ObjectId, ref: "User"})
     user: mongoose.Types.ObjectId;
     @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}]})
