@@ -6,7 +6,7 @@ export default class ApiClient {
 
   private constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3005",
+      baseURL: "https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/",
       headers: {
         'Content-Type': 'application/json',
       },
@@ -22,7 +22,7 @@ export default class ApiClient {
     return ApiClient.instance;
   }
 
-  public get<T = any>(url: string, config?: AxiosRequestConfig, token?: string): Promise<AxiosResponse<T>> {
+  public get<T = any>( {url, config, token} :{url: string, config?: AxiosRequestConfig, token?: string}): Promise<AxiosResponse<T>> {
     return this.api.get(url, {
         headers: {
             Authorization: `Bearer ${token && token}`,

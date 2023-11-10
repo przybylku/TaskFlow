@@ -7,6 +7,7 @@ import Login from "./Components/Authorization/Login";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import Register from "./Components/Authorization/Register";
+import { Dashboard } from "./Components/Dashboard";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register/>
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
