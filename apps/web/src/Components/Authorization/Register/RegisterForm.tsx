@@ -29,7 +29,7 @@ export function RegisterForm() {
         setLoading(true);
         setTimeout(() => {
             console.log('fetching')
-            ApiClient.getInstance().post("/user/register", data).then((res) => {
+            ApiClient.getInstance().post({url: "/user/register", data}).then((res) => {
                 console.log(res?.data.accessToken);
                 if(res?.data.accessToken){
                     userDispatch(setUser({...res.data.user, accessToken: res.data.accessToken, expiresIn: res.data.expiresIn}))

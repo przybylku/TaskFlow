@@ -28,7 +28,7 @@ export function LoginForm() {
         setLoading(true);
         setTimeout(() => {
             console.log('fetching')
-            ApiClient.getInstance().post("/user/login", data).then((res) => {
+            ApiClient.getInstance().post({url: "/user/login", data}).then((res) => {
                 console.log(res?.data.accessToken);
                 if(res?.data.accessToken){
                     userDispatch(setUser({...res.data.user, accessToken: res.data.accessToken, expiresIn: res.data.expiresIn}))

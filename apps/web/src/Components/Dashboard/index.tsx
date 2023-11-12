@@ -4,7 +4,7 @@ import { useAppSelector } from "../../store";
 import { UserType, selectUser } from "../../store/features/userSlice";
 import { ArrowDownToDot, Folder, HomeIcon, Inbox } from "lucide-react";
 import { DashboardTasks } from "./DashboardTasks";
-import { DialogContent, DialogTitle, Input, Modal, ModalDialog, Option, Select } from "@mui/joy";
+import { Button, CircularProgress, DialogContent, DialogTitle, Input, Modal, ModalDialog, Option, Select } from "@mui/joy";
 import { useForm } from "react-hook-form";
 import React from 'react'
 export type Inputs = {
@@ -19,6 +19,7 @@ export function Dashboard(){
     let _params: string | null = params.get('id')
     let [id, setId] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
+    const [modalLoading, setModalLoading] = useState<boolean>(false)
     const user: UserType = useAppSelector(selectUser)
     const [modalOpen, setModalOpen] = useState<boolean>(false)
     const {
@@ -35,17 +36,8 @@ export function Dashboard(){
         }
     }, [user, path.pathname])
     const onSubmitModal = (data: Inputs) => {
-
+        setModalLoading(true)
     }
-    const ModalSelect = React.forwardRef(({onChange, onBlur, name, label}, ref) => (
-        <>
-            <label>{label}</label>
-            {/* <Select defaultValue={"Lista"} name={name} ref={ref} onChange={onChange} onBlur={onBlur}>
-                <Option value="Lista">Lista</Option>
-                <Option value="Tablica">Tablica</Option>
-            </Select> */}
-        </>
-    ))
     return (
         <>
             <div className="flex flex-row w-full h-full flex-wrap">
@@ -76,11 +68,13 @@ export function Dashboard(){
                             <DialogContent>
                                 Wypełnij informacje o nowym projekcie
                             </DialogContent>
-                            <form onSubmit={handleSubmit(onSubmitModal)}>
+                            { !modalLoading ? <form onSubmit={handleSubmit(onSubmitModal)}>
                                 <label htmlFor="name" className="mt-2">Nazwa</label>
                                 <Input {...register("name", {required: true})} />
-                                <ModalSelect {...register("type", {required: true})}/>
-                            </form>
+                                <Button type="submit" style={{float: "right", marginTop: "10px"}} color="success">Stwórz</Button>
+                            </form> : <div className="flex flex-col w-full h-full justify-center items-center">
+                                <CircularProgress size="lg" variant="plain"></CircularProgress>
+                                </div>}
                         </ModalDialog>
             </Modal>
         </>
