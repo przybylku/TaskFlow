@@ -22,6 +22,7 @@ export function Dashboard(){
     const path = useLocation()
     let [params, setParams] = useSearchParams()
     let _params: string | null = params.get('id')
+    let _name: string | null = params.get('name')
     let [id, setId] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
     const [modalLoading, setModalLoading] = useState<boolean>(false)
@@ -83,14 +84,14 @@ export function Dashboard(){
                     <div className="w-[calc(100%-20px)] px-4 border-t-gray-400 border-t-1 h-[2px]"></div>
                     <ol>
                         {user.Board.map((board) => {
-                            return <li className="flex flex-row py-2"><Link className="flex flex-row" to={`/dashboard?id=${board._id}`}><Folder className="mr-2" size={20}/> {board.name}</Link></li>
+                            return <li className="flex flex-row py-2"><Link className="flex flex-row" to={`/dashboard?id=${board._id}&name=${board.name}`}><Folder className="mr-2" size={20}/> {board.name}</Link></li>
                         })}
                         {/* <li><Link href={`dashboard?id=${user.Board._id}`}>{user.Board.name}</Link></li> */}
                         <li className="flex flex-row py-2" onClick={() => setModalOpen(true)}><ArrowDownToDot/> Nowy</li>
                     </ol>
                 </div>
                 <div className="flex w-[calc(100vw-250px)] md:w-[calc(100vw-250px)] md:h-[92vh] h-[92vh] bg-white border-l-2">
-                        <DashboardTasks params={_params} openTaskModal={() => setModalTaskOpen(true)} refresh={_refresh}/> 
+                        <DashboardTasks name={_name ? _name : ""} params={_params} openTaskModal={() => setModalTaskOpen(true)} refresh={_refresh}/> 
                 </div>
             </div>
             {/* MODAL DO TWORZENIA PROJEKTU */}

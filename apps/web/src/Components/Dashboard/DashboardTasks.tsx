@@ -20,7 +20,7 @@ type data = {
 }
 
 
-export function DashboardTasks({params, openTaskModal, refresh}: {params: any, openTaskModal: () => void, refresh: string}){
+export function DashboardTasks({name ,params, openTaskModal, refresh}: {name?: string, params: any, openTaskModal: () => void, refresh: string}){
 
     const [data, setData] = useState<data[] | null>()
     const [loading, setLoading] = useState<boolean>(false)
@@ -55,6 +55,7 @@ export function DashboardTasks({params, openTaskModal, refresh}: {params: any, o
                     {loading ? <><p className="text-center translate-x-[-25%] mb-3">Pobieranie danych</p><CircularProgress size="lg" variant="plain" determinate value={value as number}>
                                     <Typography>{value}%</Typography>
                                 </CircularProgress></>: <>
+                                <h1>Nazwa: {name}</h1>
                                 <Button color="primary" onClick={() => openTaskModal()}>Nowe Zadanie</Button>
                         <h1>{data?.map((item) => {
                             return (
