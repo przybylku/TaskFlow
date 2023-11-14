@@ -12,6 +12,10 @@ export type Inputs = {
     name: string,
     type: "Lista" | "Tabela"
 }
+export type TaskInputs = {
+    title: string,
+    description: string
+}
 
 export function Dashboard(){
     const router = useNavigate()
@@ -23,6 +27,8 @@ export function Dashboard(){
     const [modalLoading, setModalLoading] = useState<boolean>(false)
     const user: UserType = useAppSelector(selectUser)
     const [modalOpen, setModalOpen] = useState<boolean>(false)
+    const [modalTaskOpen, setModalTaskOpen] = useState<boolean>(false)
+    const [_refresh, setRefresh] = useState<string>("")
     const {
         register,
         handleSubmit,
@@ -30,6 +36,11 @@ export function Dashboard(){
         control,
         formState: { errors },
       } = useForm<Inputs>();
+      const {
+        register: registerTask,
+        handleSubmit: handleSubmitTask,
+        formState: { errors: errorsTask },
+      } = useForm<TaskInputs>();
     const userDispatch = useAppDispatch()
     useEffect(() => {
         console.log(user)
@@ -52,6 +63,14 @@ export function Dashboard(){
             })
         }, 1500)
     }
+    const onSubmitModalTask = (data: TaskInputs) => {
+        ApiClient.getInstance().post({url: `tasks/${_params}`, token: user.accessToken, data: {...data, priority: 0, status: 0}}).then((res) => {
+            console.log(res)
+            setModalTaskOpen(false)
+            router(`/dashboard?id=${_params}&refresh=true`)
+            setRefresh(res.data?._id)
+        })
+    }
     return (
         <>
             <div className="flex flex-row w-full h-full flex-wrap">
@@ -71,9 +90,10 @@ export function Dashboard(){
                     </ol>
                 </div>
                 <div className="flex w-[calc(100vw-250px)] md:w-[calc(100vw-250px)] md:h-[92vh] h-[92vh] bg-white border-l-2">
-                        <DashboardTasks params={_params}/> 
+                        <DashboardTasks params={_params} openTaskModal={() => setModalTaskOpen(true)} refresh={_refresh}/> 
                 </div>
             </div>
+            {/* MODAL DO TWORZENIA PROJEKTU */}
             <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                         <ModalDialog>
                             <DialogTitle>
@@ -85,6 +105,26 @@ export function Dashboard(){
                             { !modalLoading ? <form onSubmit={handleSubmit(onSubmitModal)}>
                                 <label htmlFor="name" className="mt-2">Nazwa</label>
                                 <Input {...register("name", {required: true})} />
+                                <Button type="submit" style={{float: "right", marginTop: "10px"}} color="success">Stwórz</Button>
+                            </form> : <div className="flex flex-col w-full h-full justify-center items-center">
+                                <CircularProgress size="lg" variant="plain"></CircularProgress>
+                                </div>}
+                        </ModalDialog>
+            </Modal>
+            {/* MODAL DO TWORZENIA ZADANIA */}
+            <Modal open={modalTaskOpen} onClose={() => setModalTaskOpen(false)}>
+                        <ModalDialog>
+                            <DialogTitle>
+                                Stwórz nowy zadanie
+                            </DialogTitle>
+                            <DialogContent>
+                                Wypełnij informacje o nowym zadaniu
+                            </DialogContent>
+                            { !modalLoading ? <form onSubmit={handleSubmitTask(onSubmitModalTask)}>
+                                <label htmlFor="name" className="mt-2">Nazwa</label>
+                                <Input {...registerTask("title", {required: true})} />
+                                <label htmlFor="name" className="mt-2">Opis</label>
+                                <Input {...registerTask("description", {required: true})} />
                                 <Button type="submit" style={{float: "right", marginTop: "10px"}} color="success">Stwórz</Button>
                             </form> : <div className="flex flex-col w-full h-full justify-center items-center">
                                 <CircularProgress size="lg" variant="plain"></CircularProgress>

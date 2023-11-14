@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import { UserType, selectUser } from "../../store/features/userSlice"
 import { useAppSelector } from "../../store"
 import ApiClient from "../../lib/ApiInstance"
-import { CircularProgress, Typography } from "@mui/joy"
+import { Button, CircularProgress, Typography } from "@mui/joy"
 import { useCountUp } from 'use-count-up';
+import { create } from "domain"
 
 type data = {
     board: string,
@@ -19,7 +20,7 @@ type data = {
 }
 
 
-export function DashboardTasks({params}: {params: any}){
+export function DashboardTasks({params, openTaskModal, refresh}: {params: any, openTaskModal: () => void, refresh: string}){
 
     const [data, setData] = useState<data[] | null>()
     const [loading, setLoading] = useState<boolean>(false)
@@ -45,8 +46,7 @@ export function DashboardTasks({params}: {params: any}){
                 reset()
             })
         }, 2000)
-    }, [params])
-
+    }, [params, refresh])
     return (
          <>
             {params ? <>
@@ -55,6 +55,7 @@ export function DashboardTasks({params}: {params: any}){
                     {loading ? <><p className="text-center translate-x-[-25%] mb-3">Pobieranie danych</p><CircularProgress size="lg" variant="plain" determinate value={value as number}>
                                     <Typography>{value}%</Typography>
                                 </CircularProgress></>: <>
+                                <Button color="primary" onClick={() => openTaskModal()}>Nowe Zadanie</Button>
                         <h1>{data?.map((item) => {
                             return (
                                 <>
@@ -62,6 +63,7 @@ export function DashboardTasks({params}: {params: any}){
                                 </>
                             )
                         })}</h1>
+
                     </>}
                     
                     </div>  
