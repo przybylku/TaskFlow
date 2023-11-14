@@ -76,6 +76,7 @@ export function Dashboard(){
         <>
             <div className="flex flex-row w-full h-full flex-wrap">
                 <div className="flex w-full h-[8vh] bg-red-500"></div>
+                <div className="flex flex-row flex-nowrap">
                 <div className="flex md:w-[250px] py-4 md:h-[calc(100vh-8vh)] bg-primary-foreground flex-col items-center">
                     <ol className="px-4">
                         <li className="flex flex-row pt-2"><HomeIcon className="mr-2" size={20}/>  Strona główna</li>
@@ -92,7 +93,7 @@ export function Dashboard(){
                 </div>
                 <div className="flex w-[calc(100vw-250px)] md:w-[calc(100vw-250px)] md:h-[92vh] h-[92vh] bg-white border-l-2">
                         <DashboardTasks name={_name ? _name : ""} params={_params} openTaskModal={() => setModalTaskOpen(true)} refresh={_refresh}/> 
-                </div>
+                </div></div>
             </div>
             {/* MODAL DO TWORZENIA PROJEKTU */}
             <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
