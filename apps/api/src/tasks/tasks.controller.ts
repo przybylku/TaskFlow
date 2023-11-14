@@ -24,7 +24,7 @@ export class TasksController {
         const data = await this.taskService.addComment(body)
         res.json(data)
     }
-    @Get(":board")
+    @Get("board/:board")
     @UseGuards(AuthGuard('jwt'))
     async getAllUserTasks(
         @getUser() user: User

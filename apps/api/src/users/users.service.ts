@@ -94,4 +94,15 @@ export class UsersService {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+    async getUser(user: User){
+        try {
+            const _user = await this.User.findOne({email: user.email}).populate('Board')
+            if(!_user){
+                throw new HttpException("User not found", HttpStatus.NOT_FOUND)
+            }
+            return _user
+        }catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
 }

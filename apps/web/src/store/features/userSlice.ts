@@ -56,10 +56,18 @@ export type UserType = {
             },
             getUser: (state) => {
                 return state;
+            },
+            updateUser: (state, action: PayloadAction<UserType>) => {
+                state._id = action.payload._id;
+                state.username = action.payload.username;
+                state.email = action.payload.email;
+                state.password = action.payload.password;
+                state.Board = action.payload.Board;
+            
             }
         },
     });
 
-export const {setUser, getUser} = userSlice.actions
+export const {setUser, getUser, updateUser} = userSlice.actions
 export default userSlice.reducer
 export const selectUser = (state: any) => state.user

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useNavigation, useSearchParams } from "react-router-dom";
-import { useAppSelector } from "../../store";
-import { UserType, selectUser } from "../../store/features/userSlice";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { UserType, selectUser, setUser, updateUser } from "../../store/features/userSlice";
 import { ArrowDownToDot, Folder, HomeIcon, Inbox } from "lucide-react";
 import { DashboardTasks } from "./DashboardTasks";
 import { Button, CircularProgress, DialogContent, DialogTitle, Input, Modal, ModalDialog, Option, Select } from "@mui/joy";
 import { useForm } from "react-hook-form";
 import React from 'react'
+import ApiClient from "../../lib/ApiInstance";
 export type Inputs = {
     name: string,
     type: "Lista" | "Tabela"
@@ -29,14 +30,27 @@ export function Dashboard(){
         control,
         formState: { errors },
       } = useForm<Inputs>();
+    const userDispatch = useAppDispatch()
     useEffect(() => {
         console.log(user)
         if(user && !user.accessToken){
-            router("/auth/login")
+            router("/login")
         }
-    }, [user, path.pathname])
+        
+    }, [user, path.pathname, router])
     const onSubmitModal = (data: Inputs) => {
         setModalLoading(true)
+        setTimeout(() => {
+            ApiClient.getInstance().post({url: "board", token: user.accessToken, data: data}).then((res) => {
+                console.log(res)
+                setModalLoading(false)
+                ApiClient.getInstance().get({url: "user", token: user.accessToken}).then((res) => {
+                    userDispatch(updateUser(res.data))
+                })
+                setModalOpen(false)
+                router(`/dashboard?id=${res.data._id}`)
+            })
+        }, 1500)
     }
     return (
         <>

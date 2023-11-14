@@ -39,9 +39,10 @@ export function DashboardTasks({params}: {params: any}){
         if(!params) return;
         setLoading(true)
         setTimeout(() => {
-            ApiClient.getInstance().get({url: `tasks/${params}`, token: user.accessToken}).then((data) => {
+            ApiClient.getInstance().get({url: `tasks/board/${params}`, token: user.accessToken}).then((data) => {
                 setData(data.data)
                 setLoading(false)
+                reset()
             })
         }, 2000)
     }, [params])
