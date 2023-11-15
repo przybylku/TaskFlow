@@ -132,7 +132,7 @@ export default function Dashboard() {
               })}
               {/* <li><Link href={`dashboard?id=${user.Board._id}`}>{user.Board.name}</Link></li> */}
               <li
-                className="flex flex-row py-2"
+                className="flex flex-row py-2 cursor-pointer"
                 onClick={() => setModalOpen(true)}
               >
                 <ArrowDownToDot /> Nowy

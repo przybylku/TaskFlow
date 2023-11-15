@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { dataType } from "./DashboardTasks";
-import {
-  Modal,
-  ModalDialog,
-  DialogContent,
-  DialogTitle,
-  Select,
-  Option,
-  SelectOption,
-} from "@mui/joy";
-import ApiClient from "../../lib/ApiInstance";
-import { useAppSelector } from "../../store";
-import { UserType, selectUser } from "../../store/features/userSlice";
+import TaskModal from "./TaskModal";
 
-enum Status {
+export enum Status {
   Todo = "Todo",
   InProgress = "In Progress",
   Done = "Done",
@@ -34,35 +23,6 @@ export default function TableTask({
       ? Status.InProgress
       : Status.Todo
   );
-  const user: UserType = useAppSelector(selectUser);
-
-  const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // console.log(e.target.innerHTML);
-    setTaskValue(e.target.innerHTML as Status);
-    ApiClient.getInstance()
-      .put({
-        url: "tasks",
-        token: user.accessToken,
-        data: {
-          id: item._id,
-          title: item.title,
-          description: item.description,
-          status:
-            (e.target.innerHTML as Status) === Status.Todo
-              ? 0
-              : (e.target.innerHTML as Status) === Status.InProgress
-              ? 1
-              : 2,
-          priority: Number(item.priority),
-        },
-      })
-      .then(() => {
-        fetchData();
-        // setTimeout(() => {
-        setOpen(false);
-        // }, 1500);
-      });
-  };
 
   return (
     <>
@@ -74,7 +34,21 @@ export default function TableTask({
           {item.title.length > 8 ? `${item.title.slice(0, 8)}...` : item.title}
         </p>
       </abbr>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      {/* open: boolean;
+          handleClose: () => void;
+          item: dataType;
+          taskValue: Status;
+          setTaskValue: React.Dispatch<React.SetStateAction<Status>>;
+          fetchData: () => void; */}
+      <TaskModal
+        open={open}
+        handleClose={() => setOpen(false)}
+        item={item}
+        taskValue={taskValue}
+        setTaskValue={setTaskValue}
+        fetchData={fetchData}
+      />
+      {/* <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
           <DialogTitle>{item.title}</DialogTitle>
           <DialogContent>
@@ -90,11 +64,6 @@ export default function TableTask({
                   <Option value={Status.InProgress}>{Status.InProgress}</Option>
                   <Option value={Status.Done}>{Status.Done}</Option>
                 </Select>
-                {/* {item.status === "2"
-                  ? "Done"
-                  : item.status === "1"
-                  ? "In progress"
-                  : item.status === "0" && "Todo"} */}
               </p>
               <p>Priorytet: {item.priority}</p>
               {item.comments.length > 0 && (
@@ -113,7 +82,7 @@ export default function TableTask({
             </div>
           </DialogContent>
         </ModalDialog>
-      </Modal>
+      </Modal> */}
     </>
   );
 }
