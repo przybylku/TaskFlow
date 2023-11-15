@@ -7,31 +7,33 @@ import Login from "./Components/Authorization/Login";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import Register from "./Components/Authorization/Register";
-import { Dashboard } from "./Components/Dashboard";
+import Dashboard from "./Components/Dashboard";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
   },
   {
-    path: "/login",
-    element: <Login/>
+    path: "/auth/login",
+    element: <Login />,
   },
   {
     path: "/register",
-    element: <Register/>
+    element: <Register />,
   },
   {
     path: "/dashboard",
-    element: <Dashboard/>
-  }
+    element: <Dashboard />,
+  },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
