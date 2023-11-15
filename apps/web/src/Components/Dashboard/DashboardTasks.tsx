@@ -10,12 +10,22 @@ import TableTask from "./TableTask";
 
 export type dataType = {
   board: string;
-  comments: string[];
+  comments: commentType[];
   createdAt: string;
   description: string;
   priority: string;
   status: string;
   title: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+};
+
+export type commentType = {
+  task: string;
+  user: string;
+  content: string;
+  createdAt: string;
   updatedAt: string;
   __v: number;
   _id: string;
@@ -48,6 +58,47 @@ export function DashboardTasks({
     end: 100,
     easing: "easeOutCubic",
   });
+
+  const fetchData = () => {
+    ApiClient.getInstance()
+      .get({ url: `tasks/board/${params}`, token: user.accessToken })
+      .then((data) => {
+        const firstStatusFilter = data?.data?.filter(
+          (e: dataType) => e.status === "0"
+        );
+        const secondStatusFilter = data?.data?.filter(
+          (e: dataType) => e.status === "1"
+        );
+        const thirdStatusFilter = data?.data?.filter(
+          (e: dataType) => e.status === "2"
+        );
+
+        const firstStatusSort = firstStatusFilter?.sort(
+          (a: dataType, b: dataType) => {
+            return a.priority < b.priority ? 1 : -1;
+          }
+        );
+        const secondStatusSort = secondStatusFilter?.sort(
+          (a: dataType, b: dataType) => {
+            return a.priority < b.priority ? 1 : -1;
+          }
+        );
+        const thirdStatusSort = thirdStatusFilter?.sort(
+          (a: dataType, b: dataType) => {
+            return a.priority < b.priority ? 1 : -1;
+          }
+        );
+
+        setFirstStatus(firstStatusSort);
+        setSecondStatus(secondStatusSort);
+        setThirdStatus(thirdStatusSort);
+
+        setData(data.data);
+        setLoading(false);
+        reset();
+      });
+  };
+
   // Pobieranie danych o taskach
   useEffect(() => {
     setFirstStatus(null);
@@ -56,19 +107,7 @@ export function DashboardTasks({
     if (!params) return;
     setLoading(true);
     setTimeout(() => {
-      ApiClient.getInstance()
-        .get({ url: `tasks/board/${params}`, token: user.accessToken })
-        .then((data) => {
-          setFirstStatus(data?.data?.filter((e: dataType) => e.status === "0"));
-          setSecondStatus(
-            data?.data?.filter((e: dataType) => e.status === "1")
-          );
-          setThirdStatus(data?.data?.filter((e: dataType) => e.status === "2"));
-
-          setData(data.data);
-          setLoading(false);
-          reset();
-        });
+      fetchData();
     }, 2000);
   }, [params, refresh]);
   return (
@@ -98,14 +137,11 @@ export function DashboardTasks({
               ) : (
                 <>
                   <h1 className="text-4xl font-bold mb-10">{name}</h1>
-                  {/* <Button color="primary" onClick={() => openTaskModal()}>
-                    Nowe Zadanie
-                  </Button> */}
                   <div className="grid grid-cols-3">
                     <div className="flex flex-col">
                       <h1 className="text-2xl font-bold">Do zrobienia:</h1>
                       <div
-                        className="border-black border-2 cursor-pointer font-bold text-lg border-dashed my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+                        className="border-black border-2 cursor-pointer font-bold text-xl border-dashed my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
                         onClick={() => openTaskModal()}
                       >
                         +
@@ -113,7 +149,11 @@ export function DashboardTasks({
                       {firstStatus?.map((item, index) => {
                         return (
                           <>
-                            <TableTask item={item} key={index} />
+                            <TableTask
+                              item={item}
+                              fetchData={() => fetchData()}
+                              key={index}
+                            />
                           </>
                         );
                       })}
@@ -123,7 +163,11 @@ export function DashboardTasks({
                       {secondStatus?.map((item, index) => {
                         return (
                           <>
-                            <TableTask item={item} key={index} />
+                            <TableTask
+                              item={item}
+                              fetchData={() => fetchData()}
+                              key={index}
+                            />
                           </>
                         );
                       })}
@@ -133,7 +177,11 @@ export function DashboardTasks({
                       {thirdStatus?.map((item, index) => {
                         return (
                           <>
-                            <TableTask item={item} key={index} />
+                            <TableTask
+                              item={item}
+                              fetchData={() => fetchData()}
+                              key={index}
+                            />
                           </>
                         );
                       })}

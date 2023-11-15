@@ -93,7 +93,7 @@ export default function Dashboard() {
       .post({
         url: `tasks/${_params}`,
         token: user.accessToken,
-        data: { ...data, priority: 0, status: 0 },
+        data: { ...data, priority: 3, status: 0 },
       })
       .then((res) => {
         console.log(res);
