@@ -149,9 +149,7 @@ export default function TaskModal({
         <DialogContent className="overflow-hidden">
           <div className="flex flex-col">
             <div className="flex flex-col">
-              <p className="text-gray-500 w-[101%] flex-wrap text-[0.85rem]">
-                Opis:
-              </p>
+              <p className="text-gray-500 flex-wrap text-[0.85rem]">Opis:</p>
               <div
                 className={`flex w-full ${
                   newChangeDescInput && "justify-between"
@@ -159,7 +157,7 @@ export default function TaskModal({
               >
                 {!newChangeDescInput ? (
                   <p
-                    className="whitespace-pre-wrap"
+                    className="whitespace-pre-wrap flex flex-wrap"
                     dangerouslySetInnerHTML={{ __html: item.description }}
                   ></p>
                 ) : (

@@ -1,3 +1,4 @@
+import { Button } from "@mui/joy";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
@@ -21,8 +22,10 @@ export default function HomePage() {
           stworzyliśmy to narzędzie, aby uprościć Twój proces pracy i umożliwić
           Ci osiąganie celów z łatwością.
         </p>
-        <Link to={"/auth/register"}>
-          Sprawdź
+        <Link className="mt-4" to={"/register"}>
+          <Button className="mt-4" variant="solid">
+            Sprawdź
+          </Button>
           {/* <ArrowRight size={18} className="ml-1" /> */}
         </Link>
         <div className="border-spacing-6 p-2 ring-1 bg-primary/10 ring-primary/50 mt-10 border rounded-md">
