@@ -116,7 +116,7 @@ export function DashboardTasks({
       {params ? (
         <>
           <div
-            className={`p-5 px-7 w-full h-full ${
+            className={` ${loading && "flex"} p-5 px-7 w-full h-full ${
               loading === true ? "justify-center items-center" : ""
             }`}
           >

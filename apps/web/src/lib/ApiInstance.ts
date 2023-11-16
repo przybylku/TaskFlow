@@ -6,7 +6,7 @@ export default class ApiClient {
 
   private constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3005",
+      baseURL: "https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/",
       headers: {
         "Content-Type": "application/json",
       },
