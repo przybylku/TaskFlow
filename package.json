@@ -16,6 +16,7 @@
   },
   "name": "TaskFlow",
   "packageManager": "npm@9.8.1",
+  "version": "0.0.0.0.0.0.0.0.1v",
   "workspaces": [
     "apps/*",
     "packages/*"

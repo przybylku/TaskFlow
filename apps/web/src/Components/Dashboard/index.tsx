@@ -105,8 +105,10 @@ export default function Dashboard() {
   return (
     <>
       <div className="flex flex-row w-full h-full flex-wrap overflow-hidden">
-        <div className="flex w-full h-[8vh] bg-red-500"></div>
-        <div className="flex flex-row flex-nowrap">
+        <div className="flex w-full h-[8vh] bg-gray-500">
+          <h1 className={"pl-4 pt-2 font-semibold text-[2rem]"}>TaskFlow</h1>
+        </div>
+        <div className="flex flex-row flex-nowrap bg-black-200">
           <div className="flex md:w-[250px] py-4 md:h-[calc(100vh-8vh)] bg-primary-foreground flex-col items-center">
             <ol className="px-4">
               <li className="flex flex-row pt-2">
