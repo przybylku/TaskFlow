@@ -112,16 +112,14 @@ export default function Dashboard() {
         </div>
         <div className="flex flex-row md:flex-nowrap flex-wrap">
           <div className="flex md:w-[250px] w-full py-4  md:h-[calc(100vh-8vh)] bg-primary-foreground flex-col items-center">
-            <ol className="px-4">
+            <div className="w-[calc(100%-20px)] border-t-gray-400 border-t-1 h-[2px]"></div>
+            <ol>
               <li className="flex flex-row pt-2">
                 <HomeIcon className="mr-2" size={20} /> Strona główna
               </li>
               <li className="flex flex-row py-2">
                 <Inbox className="mr-2" size={20} /> Skrzynka odbiorcza
               </li>
-            </ol>
-            <div className="w-[calc(100%-20px)] px-4  border-t-gray-400 border-t-1 h-[2px]"></div>
-            <ol>
               {user.Board.map((board) => {
                 return (
                   <li className="flex flex-row py-2">
