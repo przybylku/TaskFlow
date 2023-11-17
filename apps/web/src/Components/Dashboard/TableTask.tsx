@@ -28,7 +28,8 @@ export default function TableTask({
     <>
       <abbr title={item.title} className="no-underline">
         <p
-          className="border-black border-2 cursor-pointer font-bold text-lg my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+          // className="border-black border-2 cursor-pointer font-bold text-lg my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+          className="tableTask"
           onClick={() => setOpen(true)}
         >
           {item.title.length > 8 ? `${item.title.slice(0, 8)}...` : item.title}
