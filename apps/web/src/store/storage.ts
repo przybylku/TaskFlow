@@ -1,5 +1,5 @@
 "use client";
-import createWebStorage from "redux-persist/lib/storage/session";
+import createWebStorage from "redux-persist/lib/storage";
 
 const createNoopStorage = () => {
   return {
@@ -15,7 +15,5 @@ const createNoopStorage = () => {
   };
 };
 const storage =
-  typeof window !== "undefined"
-    ? createWebStorage("local")
-    : createNoopStorage();
+  typeof window !== "undefined" ? createWebStorage : createNoopStorage();
 export default storage;
