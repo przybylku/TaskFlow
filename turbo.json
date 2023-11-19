@@ -4,7 +4,8 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["/dist/**/*", "/dist/**/*"]
+      "env": [""],
+      "outputs": ["dist/**/*"]
     },
     "lint": {},
     "dev": {
