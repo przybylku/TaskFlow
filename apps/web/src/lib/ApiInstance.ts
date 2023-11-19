@@ -1,12 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-const CODESPACE = "https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/"
+const CODESPACE = "https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/";
 export default class ApiClient {
   private static instance: ApiClient;
   private readonly api: AxiosInstance;
 
   private constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3005",
+      baseURL: "https://task-flow-web-z5d1-cr0ce5k0w-przybylku.vercel.app",
       headers: {
         "Content-Type": "application/json",
       },
