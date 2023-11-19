@@ -5,7 +5,7 @@
     "build": {
       "dependsOn": ["^build"],
       "env": [""],
-      "outputs": ["dist/**/*"]
+      "outputs": ["dist/**", "build/**"]
     },
     "lint": {},
     "dev": {
