@@ -12,7 +12,8 @@
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
     "tsconfig": "*",
-    "turbo": "latest"
+    "turbo": "latest",
+    "@babel/plugin-proposal-private-property-in-object": "latest"
   },
   "name": "TaskFlow",
   "packageManager": "npm@9.8.1",
