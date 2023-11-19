@@ -1,22 +1,43 @@
 import { Button } from "@mui/joy";
+import { ArrowRightIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import {TypeAnimation} from "react-type-animation";
+const H1Typing = () => {
+  return (
+    <TypeAnimation
+      sequence={[
+        "Zacznij planować swoje zadania.",
+        1000,
+        "Zarządzaj swoimi projektami.",
+        1000,
+        "Zadania nigdy nie były tak proste.",
+        1000,
+      ]}
+      wrapper="span"
+      speed={50}
+      style={{ fontSize: '1rem', display: 'inline-block' }}
+      repeat={Infinity}
+    />
+  );
+};
 
 export default function HomePage() {
   return (
     <>
-      <div className="flex flex-row px-2 py-4 justify-end items-end">
-        <Link to={"/auth/login"}>Login</Link>
+      <div className="flex flex-row px-6 py-4 justify-between items-end">
+        <h1><span className="text-[1.4rem] font-bold text-blue-600">TaskFlow</span>, <H1Typing/></h1>
+        <Link to={"/auth/login"} > <Button variant="solid"> Zaloguj się</Button></Link>
       </div>
       <div className="flex flex-col px-2 md:px-40 justify-center content-center items-center mt-6 mb-14">
-        <div>TaskFlow is Alive?</div>
+        <div>Co to TaskFlow?</div>
         {/* Link do heartbeatu maan */}
         <h1 className="text-center text-[2rem] font-semibold mb-4">
           Twoje Miejsce na Skuteczne Zarządzanie Zadaniami
         </h1>
-        <p className=" text-center">
+        <p className=" text-center w-[50%]">
           Czy czujesz, że codzienne obowiązki i projekty przytłaczają Cię? Nasza
           platforma do zarządzania zadaniami,
-          <span className="text-primary font-bold"> TaskFlow</span>, jest tutaj,
+          <span className="text-primary font-bold text-blue-600"> TaskFlow</span>, jest tutaj,
           aby Ci pomóc. Zrozumujemy, że w dzisiejszym dynamicznym świecie
           zarządzanie obowiązkami może stać się trudne i czasochłonne. Dlatego
           stworzyliśmy to narzędzie, aby uprościć Twój proces pracy i umożliwić
@@ -24,7 +45,7 @@ export default function HomePage() {
         </p>
         <Link className="mt-4" to={"/register"}>
           <Button className="mt-4" variant="solid">
-            Sprawdź
+            Sprawdź <ArrowRightIcon size={20} className="ml-1 pt-[2px]" />
           </Button>
           {/* <ArrowRight size={18} className="ml-1" /> */}
         </Link>
