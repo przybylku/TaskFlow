@@ -1,5 +1,9 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": [".", "../../apps/web/tailwind.config.ts"],
+  "include": [
+    ".",
+    "../../apps/web/tailwind.config.ts",
+    "../../apps/web/components/login"
+  ],
   "exclude": ["dist", "build", "node_modules"]
 }

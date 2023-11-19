@@ -106,20 +106,20 @@ export default function Dashboard() {
     <>
       <div className="flex flex-row w-full h-full flex-wrap overflow-hidden">
         <div className="flex w-full h-[8vh] bg-gray-500">
-          <h1 className={"pl-4 pt-2 font-semibold text-[2rem]"}>TaskFlow</h1>
+          <h1 className={"pl-4 pt-2 font-semibold text-[2rem] text-white"}>
+            TaskFlow
+          </h1>
         </div>
-        <div className="flex flex-row flex-nowrap bg-black-200">
-          <div className="flex md:w-[250px] py-4 md:h-[calc(100vh-8vh)] bg-primary-foreground flex-col items-center">
-            <ol className="px-4">
+        <div className="flex flex-row md:flex-nowrap flex-wrap">
+          <div className="flex md:w-[250px] w-full py-4  md:h-[calc(100vh-8vh)] bg-primary-foreground flex-col items-center">
+            <div className="w-[calc(100%-20px)] border-t-gray-400 border-t-1 h-[2px]"></div>
+            <ol>
               <li className="flex flex-row pt-2">
                 <HomeIcon className="mr-2" size={20} /> Strona główna
               </li>
               <li className="flex flex-row py-2">
                 <Inbox className="mr-2" size={20} /> Skrzynka odbiorcza
               </li>
-            </ol>
-            <div className="w-[calc(100%-20px)] px-4 border-t-gray-400 border-t-1 h-[2px]"></div>
-            <ol>
               {user.Board.map((board) => {
                 return (
                   <li className="flex flex-row py-2">
@@ -141,7 +141,7 @@ export default function Dashboard() {
               </li>
             </ol>
           </div>
-          <div className="flex w-[calc(100vw-250px)] md:w-[calc(100vw-250px)] md:h-[92vh] h-[92vh] bg-white border-l-2 overflow-y-scroll">
+          <div className="flex w-[100vw] md:w-[calc(100vw-250px)] md:h-[92vh] h-[92vh] bg-white border-l-2 overflow-y-scroll">
             <DashboardTasks
               name={_name ? _name : ""}
               params={_params}

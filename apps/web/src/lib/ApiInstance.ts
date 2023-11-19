@@ -1,12 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-
+const CODESPACE = "https://psychic-disco-5x7vxxvwvgqf4j96-3005.app.github.dev/"
 export default class ApiClient {
   private static instance: ApiClient;
   private readonly api: AxiosInstance;
 
   private constructor() {
     this.api = axios.create({
-      baseURL: "https://shiny-cod-w5xr5gxw9jr3g9gw-3005.app.github.dev/",
+      baseURL: "http://localhost:3005",
       headers: {
         "Content-Type": "application/json",
       },
