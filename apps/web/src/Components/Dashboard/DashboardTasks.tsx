@@ -116,7 +116,9 @@ export function DashboardTasks({
       {params ? (
         <>
           <div
-            className={` ${loading && "flex"} p-5 px-7 w-full h-full ${
+            className={` ${
+              loading && "flex"
+            } p-5 px-7 w-full bg-[#212121] text-white h-full ${
               loading === true ? "justify-center items-center" : ""
             }`}
           >
@@ -154,11 +156,12 @@ export function DashboardTasks({
                     </p>
                   </div>
                   {tableView ? (
-                    <div className="grid grid-cols-3">
-                      <div className="flex flex-col">
-                        <h1 className="text-2xl font-bold">Do zrobienia:</h1>
+                    <div className="flex gap-2">
+                      <div className="tableTaskContainer">
+                        <h1 className="text-xl font-bold">Do zrobienia:</h1>
                         <div
-                          className="border-black border-2 cursor-pointer font-bold text-xl border-dashed my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+                          // className="border-black border-2 cursor-pointer font-bold text-xl border-dashed my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+                          className="addTask"
                           onClick={() => openTaskModal()}
                         >
                           +
@@ -175,8 +178,15 @@ export function DashboardTasks({
                           );
                         })}
                       </div>
-                      <div className="flex flex-col">
-                        <h1 className="text-2xl font-bold">W trakcie:</h1>
+                      <div className="tableTaskContainer">
+                        <h1 className="text-xl font-bold">W trakcie:</h1>
+                        <div
+                          // className="border-black border-2 cursor-pointer font-bold text-xl border-dashed my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+                          className="addTask"
+                          onClick={() => openTaskModal()}
+                        >
+                          +
+                        </div>
                         {secondStatus?.map((item, index) => {
                           return (
                             <>
@@ -189,8 +199,15 @@ export function DashboardTasks({
                           );
                         })}
                       </div>
-                      <div className="flex flex-col">
-                        <h1 className="text-2xl font-bold">Zrobione:</h1>
+                      <div className="tableTaskContainer">
+                        <h1 className="text-xl font-bold">Zrobione:</h1>
+                        <div
+                          // className="border-black border-2 cursor-pointer font-bold text-xl border-dashed my-4 hover:brightness-75 bg-white w-32 h-32 flex items-center justify-center rounded-md"
+                          className="addTask"
+                          onClick={() => openTaskModal()}
+                        >
+                          +
+                        </div>
                         {thirdStatus?.map((item, index) => {
                           return (
                             <>
