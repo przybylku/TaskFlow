@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { UserType, selectUser } from "../../store/features/userSlice";
 import { useAppSelector } from "../../store";
 import ApiClient from "../../lib/ApiInstance";
@@ -32,6 +32,13 @@ export type commentType = {
   _id: string;
 };
 
+export enum ListHeader {
+  Name = "title",
+  Description = "description",
+  Status = "status",
+  Priority = "priority",
+}
+
 export function DashboardTasks({
   name,
   params,
@@ -43,7 +50,7 @@ export function DashboardTasks({
   openTaskModal: () => void;
   refresh: string;
 }) {
-  const [data, setData] = useState<dataType[] | null>();
+  const [data, setData] = useState<dataType[] | null>(null);
   const [tableView, setTableView] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -51,6 +58,10 @@ export function DashboardTasks({
   const [firstStatus, setFirstStatus] = useState<dataType[] | null>(null);
   const [secondStatus, setSecondStatus] = useState<dataType[] | null>(null);
   const [thirdStatus, setThirdStatus] = useState<dataType[] | null>(null);
+  const [sorting, setSorting] = useState({
+    field: ListHeader.Name,
+    ascending: false,
+  });
 
   const { value, reset } = useCountUp({
     isCounting: loading,
@@ -60,8 +71,12 @@ export function DashboardTasks({
     easing: "easeOutCubic",
   });
 
-  const fetchData = () => {
-    ApiClient.getInstance()
+  const applySorting = (key: any, ascending: any) => {
+    setSorting({ field: key, ascending: ascending });
+  };
+
+  const fetchData = useCallback(async () => {
+    await ApiClient.getInstance()
       .get({ url: `tasks/board/${params}`, token: user.accessToken })
       .then((data) => {
         const firstStatusFilter = data?.data?.filter(
@@ -98,7 +113,19 @@ export function DashboardTasks({
         setLoading(false);
         reset();
       });
-  };
+  }, [params, user.accessToken, reset]);
+
+  useEffect(() => {
+    if (data !== null) {
+      const dataCopy = [...data];
+      const sortedData = dataCopy.sort((a: any, b: any) => {
+        console.log(a[sorting.field], b);
+        return a[sorting["field"]].localeCompare(b[sorting["field"]]);
+      });
+
+      setData(sorting["ascending"] ? sortedData : sortedData.reverse());
+    }
+  }, [sorting]);
 
   // Pobieranie danych o taskach
   useEffect(() => {
@@ -116,9 +143,7 @@ export function DashboardTasks({
       {params ? (
         <>
           <div
-            className={` ${
-              loading && "flex"
-            } p-5 px-7 w-full bg-[#212121] text-white h-full ${
+            className={` ${loading && "flex"} p-5 px-7 w-full h-full ${
               loading === true ? "justify-center items-center" : ""
             }`}
           >
@@ -132,9 +157,10 @@ export function DashboardTasks({
                     size="lg"
                     variant="plain"
                     determinate
+                    color="success"
                     value={value as number}
                   >
-                    <Typography>{value}%</Typography>
+                    <Typography color="primary">{value}%</Typography>
                   </CircularProgress>
                 </>
               ) : (
@@ -226,14 +252,55 @@ export function DashboardTasks({
                       <Table
                         aria-label="table variants"
                         variant="plain"
-                        color="primary"
+                        stickyHeader
+                        color="neutral"
                       >
                         <thead>
                           <tr>
-                            <th>Nazwa</th>
-                            <th>Opis</th>
-                            <th>Status</th>
-                            <th>Priorytet</th>
+                            <th
+                              onClick={() =>
+                                applySorting(
+                                  ListHeader["Name"],
+                                  !sorting["ascending"]
+                                )
+                              }
+                              className="hover:cursor-pointer"
+                            >
+                              Nazwa
+                            </th>
+                            <th
+                              onClick={() =>
+                                applySorting(
+                                  ListHeader["Description"],
+                                  !sorting["ascending"]
+                                )
+                              }
+                              className="hover:cursor-pointer"
+                            >
+                              Opis
+                            </th>
+                            <th
+                              onClick={() =>
+                                applySorting(
+                                  ListHeader["Status"],
+                                  !sorting["ascending"]
+                                )
+                              }
+                              className="hover:cursor-pointer"
+                            >
+                              Status
+                            </th>
+                            <th
+                              onClick={() =>
+                                applySorting(
+                                  ListHeader["Priority"],
+                                  !sorting["ascending"]
+                                )
+                              }
+                              className="hover:cursor-pointer"
+                            >
+                              Priorytet
+                            </th>
                             {/* <th>Akcje</th> */}
                           </tr>
                         </thead>
@@ -264,7 +331,7 @@ export function DashboardTasks({
           </div>
         </>
       ) : (
-        <div className="flex flex-row w-full h-full justify-center items-center">
+        <div className="flex flex-row w-full h-full justify-center items-center bg-[#212121] text-white">
           <h1 className="text-[2rem] font-semibold">Nie wybrano projektu</h1>
         </div>
       )}

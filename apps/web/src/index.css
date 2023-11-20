@@ -92,14 +92,27 @@
 
 @layer components {
   .tableTask {
-    @apply dark:bg-gray-800 bg-[#424242] rounded-md p-2 h-12 hover:bg-[#646464] cursor-pointer w-full;
+    @apply bg-[#323232] shadow-white rounded-md p-2 h-12 hover:bg-[#646464] cursor-pointer w-full flex items-center;
   }
 
   .addTask {
-    @apply text-blue-400 flex justify-center items-center;
+    @apply bg-[#323232] shadow-white rounded-md p-2 h-6 hover:bg-[#646464] hover:text-blue-400 my-2 cursor-pointer w-full flex justify-center items-center;
   }
 
   .tableTaskContainer {
     @apply flex flex-col gap-2 p-2 rounded-md border-[1px] border-[#212121] hover:border-gray-500 w-52 h-[min-content];
+  }
+
+  th {
+    background-color: #212121 !important;
+    color: white !important;
+  }
+  tr {
+    background-color: #212121 !important;
+    color: white !important;
+  }
+
+  .taskModal {
+    @apply w-[570px] h-full bg-[#212121] border-l-2 z-40 border-[#434343];
   }
 }
