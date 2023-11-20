@@ -8,9 +8,18 @@ import { TasksModule } from './tasks/tasks.module';
 import { BoardModule } from './board/board.module';
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://JacobDev:Jowi2703@devflow.kytm4jj.mongodb.net/?retryWrites=true"), UsersModule, ConfigModule.forRoot({
-    envFilePath: '.env', isGlobal: true,
-  }), TasksModule, BoardModule],
+  imports: [
+    MongooseModule.forRoot(
+      'mongodb+srv://JacobDev:Jowi2703@devflow.kytm4jj.mongodb.net/?retryWrites=true',
+    ),
+    UsersModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+    TasksModule,
+    BoardModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

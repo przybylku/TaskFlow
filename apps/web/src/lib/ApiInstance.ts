@@ -6,7 +6,7 @@ export default class ApiClient {
 
   private constructor() {
     this.api = axios.create({
-      baseURL: "https://task-flow-web-z5d1.vercel.app",
+      baseURL: "https://task-flow-api-prod.vercel.app",
       headers: {
         "Content-Type": "application/json",
       },
