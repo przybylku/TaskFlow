@@ -49,14 +49,16 @@ export default function ListView({
           </Button>
         </td> */}
       </tr>
-      <TaskModal
-        open={open}
-        handleClose={() => setOpen(false)}
-        item={item}
-        taskValue={taskValue}
-        setTaskValue={setTaskValue}
-        fetchData={fetchData}
-      />
+      {open && (
+        <TaskModal
+          open={open}
+          handleClose={() => setOpen(false)}
+          item={item}
+          taskValue={taskValue}
+          setTaskValue={setTaskValue}
+          fetchData={fetchData}
+        />
+      )}
     </>
   );
 }

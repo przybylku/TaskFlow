@@ -41,14 +41,17 @@ export default function TableTask({
           taskValue: Status;
           setTaskValue: React.Dispatch<React.SetStateAction<Status>>;
           fetchData: () => void; */}
-      <TaskModal
-        open={open}
-        handleClose={() => setOpen(false)}
-        item={item}
-        taskValue={taskValue}
-        setTaskValue={setTaskValue}
-        fetchData={fetchData}
-      />
+      {open && (
+        <TaskModal
+          open={open}
+          handleClose={() => setOpen(false)}
+          item={item}
+          taskValue={taskValue}
+          setTaskValue={setTaskValue}
+          fetchData={fetchData}
+        />
+      )}
+
       {/* <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
           <DialogTitle>{item.title}</DialogTitle>
