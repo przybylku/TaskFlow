@@ -131,10 +131,18 @@ export function DashboardTasks({
                   <CircularProgress
                     size="lg"
                     variant="plain"
+                    color="primary"
                     determinate
                     value={value as number}
                   >
-                    <Typography>{value}%</Typography>
+                    <Typography
+                      sx={(theme) => ({
+                        color: `#ffff`,
+                      })}
+                      className="text-[#ffff]"
+                    >
+                      {value}%
+                    </Typography>
                   </CircularProgress>
                 </>
               ) : (

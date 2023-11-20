@@ -4,8 +4,9 @@ import { ValidationPipe } from '@nestjs/common/pipes';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'https://task-flow-web.vercel.app/',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    origin: ['https://task-flow-web.vercel.app/', 'http://localhost:3000'],
+    methods: ['POST', 'PUT', 'DELETE', 'GET'],
+    credentials: true,
   });
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
